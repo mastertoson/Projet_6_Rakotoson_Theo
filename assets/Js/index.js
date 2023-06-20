@@ -15,7 +15,9 @@ async function init() {
   let allCategory = await fetchCategory();
   displayCategory(allCategory);
   filtreCat();
-
+  catmodal(allCategory);
+  modalAddButton();
+  modalReturnDefaultState();
 }
 
 init();
@@ -86,6 +88,7 @@ function fetchCategory() {
 
 function displayinfo(allinfo) {
   gallery.innerHTML = "";
+  let first = true;
   for (const info of allinfo) {
     
     gallery.insertAdjacentHTML("beforeend", `
@@ -99,17 +102,17 @@ function displayinfo(allinfo) {
     
     <div class="img_img_container" data-id="${info.id}">
           <div class="icon_container">
-           <i class="fa-solid fa-arrows-up-down-left-right icon"></i> 
+           ${first&&`<i class="fa-solid fa-arrows-up-down-left-right icon"></i>` }
 					 <i class="fa-regular fa-trash-can icon delete"></i>
           </div>
           
           <img class="modal_img" src="${info.imageUrl}" alt="${info.title}">
-					<P>éditer</P>
+					<P class="modal_edit_button">éditer</P>
 					
 				</div>`)
         
         
-        
+      first = "" ;
   };
 }
 
@@ -189,7 +192,7 @@ const stopPropagation = function (e){
 
 modaleImgContainer.addEventListener('click', function(event) {
   if (event.target.classList.contains('delete')) {
-    event.preventDefault(); // Empêcher le rechargement de la page
+    event.preventDefault(); 
 
     const elementToDelete = event.target.closest('.img_img_container');
     if (elementToDelete) {
@@ -212,7 +215,7 @@ modaleImgContainer.addEventListener('click', function(event) {
         }
       })
       .catch(error => {
-        console.error('Erreur lors de la suppression:', error);
+        console.log(error);
       });
     }
   } else {
@@ -224,6 +227,43 @@ modaleImgContainer.addEventListener('click', function(event) {
 
 
 
+const modalCat = document.querySelector('.modale_form_select');
+const modalTitle = document.querySelector('.modale_form_title');
+const modalDeleteContainer = document.querySelector('.modale-delete-container');
+const modaleAddContainer = document.querySelector('.modale-add-container')
+const returnModal = document.querySelector('.return_modal');
+const modalButton = document.querySelector('.modal_button');
+const modalWrapper = document.querySelector('.modale-wrapper');
+function modalAddButton(){
+  modalButton.addEventListener("click", async (e) => {
+    console.log("oui");
 
+    modalDeleteContainer.classList.add(`display_off`);
+    modaleAddContainer.classList.remove(`display_off`);
+    returnModal.classList.remove(`hidden`);
+    modalWrapper.classList.replace( `modale-wrapper-default-height`, `modale-wrapper-form-height`);
+    
+  });
 
+};
 
+ function modalReturnDefaultState() {
+  returnModal.addEventListener("click", async (e) => {
+    console.log("non");
+
+    modalDeleteContainer.classList.remove(`display_off`);
+    modaleAddContainer.classList.add(`display_off`);
+    returnModal.classList.add(`hidden`);
+    modalWrapper.classList.replace( `modale-wrapper-form-height`, `modale-wrapper-default-height`);
+  });
+ }
+
+function catmodal (allinfo){
+  for (const info of allinfo) {
+    modalCat.insertAdjacentHTML("beforeend",
+      `
+        <option value="${info.name}">${info.name}</option>
+            `
+    );
+  };
+};
