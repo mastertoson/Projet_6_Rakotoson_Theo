@@ -500,7 +500,7 @@ footer nav ul {
 	padding: 50px 100px 50px 100px;
 }
 
-.img_img_container{
+.card_container{
 	position: relative;
 	width: 78px;
 	height: 139px;
@@ -587,7 +587,7 @@ footer nav ul {
 	font-size: 58px;
 	color: #B9C5CC;
 }
-.modal_drag_button{
+.modal_send_button{
 	border-radius: 50px;
 	height: 36px;
 	width: 173px;
@@ -735,4 +735,20 @@ footer nav ul {
 
 .hidden{
 	visibility: hidden;
+}
+
+
+
+
+.hover{
+	background: #76c6f1;
+}
+.invalid{
+	background-color: red;
+}
+
+
+#img_preview{
+	overflow:hidden;
+	z-index: 10;
 }

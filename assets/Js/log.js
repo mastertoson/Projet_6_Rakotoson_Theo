@@ -1,12 +1,8 @@
+//appel de l'api
 const log = "http://localhost:5678/api/users/login";
 
-
-
-
-
-
-
 let submit = document.getElementById("submit")
+//mise en place des regex de connexion 
 const regexMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/;
 const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$/;
 
@@ -17,14 +13,11 @@ submit.addEventListener("click", (event) => {
       password: document.getElementById("password").value
     };
     // validation que le formulaire soit correctement rempli
-    console.log(contact);
-    
     if (
       (regexMail.test(contact.email) == true) &
       (regexPassword.test(contact.password) == true)
     ) {
       event.preventDefault();
-      
       // envoie en POST
       fetch(log, {
         method: "POST",
