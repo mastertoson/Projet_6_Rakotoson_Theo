@@ -29,15 +29,13 @@ submit.addEventListener("click", (event) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-          
           localStorage.setItem('log', JSON.stringify(data));
           window.location.href = "index.html"
         })
         .catch((erreur) => alert(erreur));
     } else {
       alert(
-        "Veuillez correctement renseigner l'entièreté du formulaire pour valider votre connexion."
+        "Veuillez correctement renseigner l'entièreté de vos identifiants pour vous connecter."
       );
     }
   });

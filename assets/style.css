@@ -146,7 +146,8 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
+	padding: 0 10% 0 10%;
 }
 
 section {
@@ -209,6 +210,7 @@ li:hover {
 #introduction {
 	display: flex;
 	align-items: center;
+	padding: 0 17% 0 17%;
 }
 
 #introduction figure {
@@ -217,7 +219,6 @@ li:hover {
 
 #introduction img {
 	display: block;
-	margin: auto;
 	width: 80%;
 }
 
@@ -244,7 +245,7 @@ li:hover {
 	justify-content: center;
 	padding-bottom: 51px;
 	gap: 10px;
-
+	
 
 }
 
@@ -293,6 +294,7 @@ li:hover {
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	
 }
 
 .gallery img {
@@ -668,6 +670,7 @@ footer nav ul {
 	align-items: center;
 	justify-content: center;
 	gap: 31px;
+	
 }
 
 .padding_bottom {
@@ -702,7 +705,13 @@ footer nav ul {
 	align-items: center;
 	justify-content: start;
 	gap: 10px;
-	margin: 15px 0 0 72px ;
+	margin: 15px 0 0 0 ;
+}
+.article_modify{
+	align-items: center;
+	justify-content: start;
+	gap: 10px;
+	margin: 15px 0 19px 0 ;
 }
 .intro_icon{
 	color: black;
@@ -751,4 +760,9 @@ footer nav ul {
 #img_preview{
 	overflow:hidden;
 	z-index: 10;
+	
+}
+
+#portfolio{
+	padding: 0 17% 0 17%;
 }

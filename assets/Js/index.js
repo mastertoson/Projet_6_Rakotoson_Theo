@@ -1,3 +1,6 @@
+"use strict";
+
+
 //appel de l'api
 const worksUrl = "http://localhost:5678/api/works";
 const categorieUrl = "http://localhost:5678/api/categories";
@@ -58,7 +61,7 @@ if (logInStorage) {
   logIn = JSON.parse(logInStorage);
 };
 //vérification du contenu du localstorage
-if (logIn == "LocalStorage vide") {
+if (logIn[0] === "LocalStorage vide") {
   loginButton.innerHTML = `<a href="login.html" class="login_button">login</a>`;
 } else {
   loginButton.innerHTML = `<a href="#" class="login_button logout">logout</a>`;
@@ -90,15 +93,15 @@ function fetchWorks() {
 //récupération de l'api categorieUrl
 function fetchCategory() {
   return fetch(categorieUrl)
-    .then((res) => {
-      return res.json()
+    .then((response) => {
+      return response.json()
     })
     .catch((error) => {
       console.log(error)
     })
-}
+};
 
-//affichage des fifférentes cards 
+//affichage des différentes cards 
 function displayinfo(allinfo) {
   gallery.innerHTML = "";
   modaleImgContainer.innerHTML = "";
@@ -120,11 +123,12 @@ function displayinfo(allinfo) {
 					 <i class="fa-regular fa-trash-can icon delete"></i>
           </div>
           <img class="modal_img" src="${info.imageUrl}" alt="${info.title}">
-					<P class="modal_edit_button">éditer</P>
+					<p class="modal_edit_button">éditer</p>
 				</div>`)
     first = "";
   };
-}
+};
+
 //affichage des catégories
 function displayCategory(allinfo) {
   for (const info of allinfo) {
@@ -144,7 +148,7 @@ function filtreCat() {
   for (const cat of button) {
     cat.addEventListener("click", async (e) => {
       let allinfo = await fetchWorks();
-      const filtreInfo = allinfo.filter(info => info.categoryId == cat.id);
+      const filtreInfo = allinfo.filter(info => info.categoryId === cat.id);
       displayinfo(filtreInfo);
     })
   };
@@ -167,7 +171,7 @@ const openModal = function (e) {
 }
 //fermeture de la modale
 const closeModal = function (e) {
-  if (modal == null) return
+  if (modal === null) return
   e.preventDefault()
   modal.style.display = "none"
   modal.setAttribute('aria-hidden', 'true')
@@ -184,6 +188,15 @@ document.querySelectorAll('.open_modale').forEach(a => {
 //fonction pour eviter les interaction hors de la modale lorsqu'elle est ouverte
 const stopPropagation = function (e) {
   e.stopPropagation()
+}
+
+//affichage des catégories de façon dynamique dans le menu d'ajout de projets
+function catmodal(allinfo) {
+  for (const info of allinfo) {
+    categorySelect.insertAdjacentHTML("beforeend",
+      `<option value="${info.id}">${info.name}</option>`
+    );
+  }
 }
 
 //supression des projets 
@@ -242,14 +255,7 @@ function modalReturnDefaultState() {
   });
 }
 
-//affichage des catégories de façon dynamique dans le menu d'ajout de projets
-function catmodal(allinfo) {
-  for (const info of allinfo) {
-    categorySelect.insertAdjacentHTML("beforeend",
-      `<option value="${info.id}">${info.name}</option>`
-    );
-  }
-}
+
 
 //vide la zone de preview d'image
 let imgPreviewFile = null;
@@ -312,7 +318,7 @@ function sendImageToAPI() {
   let categorySelectValue = categorySelect.value;
   //vérifie si le contenu est conforme
   if (!imgPreviewFile || !titleValue || !categorySelectValue) {
-    alert('Veuillez remplir le titre et choisir une catégorie.');
+    alert('Veuillez correctement remplir le titre et choisir une image.');
     return;
   }
   //création de l'objet contenant le projet
